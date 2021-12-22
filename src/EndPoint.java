@@ -5,31 +5,26 @@ import java.util.Hashtable;
 public class EndPoint {
 	String path;
 	private String[] allowedMethods;
-	private Hashtable<String, byte[]> requestsAndResponses;
+	private Hashtable<String, HttpResponse> requestsAndResponses;
 	
 	public EndPoint(String path, String[] allowedMethods) {
 		this.path = path;
 		this.allowedMethods = allowedMethods;
-		this.requestsAndResponses = new Hashtable<String, byte[]>();
+		this.requestsAndResponses = new Hashtable<String, HttpResponse>();
 	}
 	
 	public byte[] getResponseForMethod(String httpMethod) {
-		String statusLine = "";
-		String header = "";
+		HttpResponse methodResponse = new HttpResponse("HTTP/1.1", "405", "NOT FOUND", new String[]{"Allow: " + getAvaliableMethods()}, "");
 
 		if(!requestsAndResponses.containsKey(httpMethod)) {
-			statusLine = "HTTP/1.1 405 NOT FOUND\r\n";
-			
-			header = "Allow:" + getAvaliableMethods() + "\r\n";
-			
-			String response = statusLine + header + "\r\n";
-			return response.getBytes();
+			return methodResponse.getFormattedResponse();
 		}
-		return requestsAndResponses.get(httpMethod);
+		return requestsAndResponses.get(httpMethod).getFormattedResponse();
 	}
-	
-	public void addHttpMethodAndResponse(String httpMethod, String response){
-		requestsAndResponses.put(httpMethod, response.getBytes());
+
+	public void addHttpMethodAndResponse(String httpMethod, String httpVersion, String statusCode, String reasonPhrase, String[] headers, String body){
+		HttpResponse response = new HttpResponse(httpVersion, statusCode, reasonPhrase, headers, body);
+		requestsAndResponses.put(httpMethod, response);
 	}
 	
 	private String getAvaliableMethods() {
@@ -44,4 +39,4 @@ public class EndPoint {
 		}
 		return allMethods;
 	}
-}
+}	

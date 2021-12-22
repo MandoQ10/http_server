@@ -32,47 +32,33 @@ public class Server {
 		endPoints.put(simpleGet.path, simpleGet);
 		endPoints.put(echoBody.path, echoBody);
 		
-		redirect.addHttpMethodAndResponse("GET", "HTTP/1.1 301 Moved Permanently\r\n" + "Location: http://127.0.0.1:5000/simple_get\r\n" + "\r\n");
+		redirect.addHttpMethodAndResponse("GET", "HTTP/1.1", "301", "Moved Permanently", new String[] {"Location: http://127.0.0.1:5000/simple_get"}, "" );
 		
-		method_options.addHttpMethodAndResponse("OPTIONS", "HTTP/1.1 200 OK\r\n" + "Allow: GET, HEAD, OPTIONS\r\n" + "\r\n");
+		method_options.addHttpMethodAndResponse("OPTIONS", "HTTP/1.1", "200", "OK", new String[] {"Allow: GET, HEAD, OPTIONS"}, "");
 		
-		method_options2.addHttpMethodAndResponse("OPTIONS", "HTTP/1.1 200 OK\r\n" + "Allow: GET, HEAD, OPTIONS, POST, PUT\r\n" + "\r\n");
+		method_options2.addHttpMethodAndResponse("OPTIONS", "HTTP/1.1", "200", "OK", new String[] {"Allow: GET, HEAD, OPTIONS, POST, PUT"}, "");
 		
-		headReqeust.addHttpMethodAndResponse("HEAD", "HTTP/1.1 200 OK\r\n" + "\r\n");
+		headReqeust.addHttpMethodAndResponse("HEAD", "HTTP/1.1", "200", "OK", new String[] {}, "");
 		
-		simpleGetWithBody.addHttpMethodAndResponse("GET", "HTTP/1.1 200 OK\r\n" + "\r\n" + "Hello world");
+		simpleGetWithBody.addHttpMethodAndResponse("GET", "HTTP/1.1", "200", "OK", new String[] {}, "Hello world");
 		
-		simpleGet.addHttpMethodAndResponse("GET", "HTTP/1.1 200 OK\r\n" + "\r\n");
-		simpleGet.addHttpMethodAndResponse("HEAD", "HTTP/1.1 200 OK\r\n" + "\r\n");
+		simpleGet.addHttpMethodAndResponse("GET", "HTTP/1.1", "200", "OK", new String[] {}, "");
+		simpleGet.addHttpMethodAndResponse("HEAD", "HTTP/1.1", "200", "OK", new String[] {}, "");
 		
-		echoBody.addHttpMethodAndResponse("POST", "HTTP/1.1 200 OK\r\n" + "\r\n" + "some body");
-	
+		echoBody.addHttpMethodAndResponse("POST", "HTTP/1.1", "200", "OK", new String[] {}, "some body");
+		
 		try(ServerSocket serverSocket = new ServerSocket(portNumber)){
 			while(true) {
 				try(Socket clientSocket = serverSocket.accept()){
-					
-					InputStreamReader inStreamReader = new InputStreamReader(clientSocket.getInputStream());
-					BufferedReader br = new BufferedReader(inStreamReader);
-					
+							
 					OutputStream outStream = clientSocket.getOutputStream();
+					RequestParser clientInputParser = new RequestParser(clientSocket.getInputStream());
 					
-					String line;		
-					line = br.readLine();
-					
-					String[] params = null;
-					boolean firstIteration = true;
-					
-					while(!line.isBlank()) {
-						if(firstIteration) {
-							params = line.split(" ");
-						}
-						firstIteration = false;
-						line = br.readLine();
-					}	
+					String[] requestParams = clientInputParser.parse();
 				
-					if(endPoints.containsKey(params[1])) {
-						EndPoint clientRequest = endPoints.get(params[1]);
-						outStream.write(clientRequest.getResponseForMethod(params[0]));
+					if(endPoints.containsKey(requestParams[1])) {
+						EndPoint clientRequest = endPoints.get(requestParams[1]);
+						outStream.write(clientRequest.getResponseForMethod(requestParams[0]));
 						
 					}else {
 						outStream.write("HTTP/1.1 404 NOT FOUND\r\n".getBytes());
