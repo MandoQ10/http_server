@@ -1,5 +1,8 @@
-import java.util.Arrays;
-import java.util.Hashtable;
+import java.io.BufferedInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 
 public class HttpResponse {
 	String httpVersion;
@@ -14,17 +17,24 @@ public class HttpResponse {
 		this.reasonPhrase = reasonPhrase;
 		this.headers = headers;
 		this.body = body;
-	}
-	
-	public byte[] getFormattedResponse() {
+	}	
+		
+	public byte[] getFormattedResponse() throws IOException {
+			
 		String statusLine = getStatusLine();
 		String hrs = getFormattedHeaders();
+		byte[] responseBody = getFormattedBody();
 		
-		String responseBody = getFormattedBody();
-		String response = statusLine + hrs + responseBody;
+		String response = statusLine + hrs ;
+			
+		ByteArrayOutputStream outputStream = new ByteArrayOutputStream( );
+         outputStream.write( response.getBytes() );
+        outputStream.write( responseBody );
+
+        byte combinedByteArray[] = outputStream.toByteArray();
 		
-		return response.getBytes();
-	}
+		return combinedByteArray;
+	}		
 	
 	private String getStatusLine() {
 		String statusLine = httpVersion + " " + statusCode + " " + reasonPhrase + "\r\n";
@@ -34,7 +44,7 @@ public class HttpResponse {
 	private String getFormattedHeaders() {
 		String result = ""; 
 		
-		if(headers.length == 0 && body.isEmpty()) {
+		if(headers.length == 0 && body.isEmpty()) {	
 			return result;
 		}
 		
@@ -42,16 +52,47 @@ public class HttpResponse {
 			return "\r\n";
 		}
 		
-		for(int i = 0; i < headers.length; ++i) {
-			result += headers[i] + "\r\n";
+		if(headers.length != 0 && body.isEmpty()) {
+			
+			for(int i = 0; i < headers.length; ++i) {
+				result += headers[i] + "\r\n";
+			}	
+			return result;
 		}
 		
-		return result;
+		for(int i = 0; i < headers.length; ++i) {
+			result += headers[i] + "\r\n";
+		}	
+	
+		return result + "\r\n";
 	}
 	
-	private String getFormattedBody() {
-		return (body.isEmpty()) ? "\r\n" : body;
+	private boolean containsImageHeader() {
+		for(int i = 0; i < headers.length; ++i) {
+			
+			if(headers[i].contains("image")) {
+				return true;
+			}
+		}
+		return false;
 	}
 	
-}	
+	private byte[] getFormattedBody() throws IOException {
+		
+		if(containsImageHeader() || body.contains("src/files")) {
+			
+			File imageFile = new File(body);
+			byte [] imageByteArray  = new byte [(int)imageFile.length()];
+	        FileInputStream fileinStream = new FileInputStream(imageFile);
+	        BufferedInputStream bis = new BufferedInputStream(fileinStream);
+	        bis.read(imageByteArray, 0, imageByteArray.length);
+	        bis.close();
+	        
+	        return imageByteArray;
+		}
+		
+		return (body.isEmpty()) ? "\r\n".getBytes() : body.getBytes();
+	}
+	
+}		
 

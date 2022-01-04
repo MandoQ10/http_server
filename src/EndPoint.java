@@ -1,6 +1,6 @@
-
-
+import java.io.IOException;
 import java.util.Hashtable;
+import org.json.simple.parser.ParseException;
 
 public class EndPoint {
 	String path;
@@ -12,18 +12,19 @@ public class EndPoint {
 		this.allowedMethods = allowedMethods;
 		this.requestsAndResponses = new Hashtable<String, HttpResponse>();
 	}
-	
-	public byte[] getResponseForMethod(String httpMethod) {
-		HttpResponse methodResponse = new HttpResponse("HTTP/1.1", "405", "NOT FOUND", new String[]{"Allow: " + getAvaliableMethods()}, "");
+		
+	public byte[] getResponseForMethod(String httpMethod) throws ParseException, IOException {
+		
+		HttpResponse methodNotFoundResponse = new HttpResponse("HTTP/1.1", "405", "Not Found", new String[]{"Allow: " + getAvaliableMethods()}, "");
 
 		if(!requestsAndResponses.containsKey(httpMethod)) {
-			return methodResponse.getFormattedResponse();
-		}
+			return methodNotFoundResponse.getFormattedResponse();
+		}	
+		
 		return requestsAndResponses.get(httpMethod).getFormattedResponse();
 	}
 
-	public void addHttpMethodAndResponse(String httpMethod, String httpVersion, String statusCode, String reasonPhrase, String[] headers, String body){
-		HttpResponse response = new HttpResponse(httpVersion, statusCode, reasonPhrase, headers, body);
+	public void addHttpMethodAndResponse(HttpResponse response, String httpMethod){
 		requestsAndResponses.put(httpMethod, response);
 	}
 	
@@ -39,4 +40,4 @@ public class EndPoint {
 		}
 		return allMethods;
 	}
-}	
+}					
