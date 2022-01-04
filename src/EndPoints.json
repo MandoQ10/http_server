@@ -1,0 +1,98 @@
+[
+	{	
+		"endPoint": {
+			"path": "/redirect",
+			"allowedHttpMethods": ["GET"]
+		}
+	},
+	{
+		"endPoint": {
+			"path": "/method_options",
+			"allowedHttpMethods": ["GET", "HEAD", "OPTIONS"]
+		}
+	},
+	{
+		"endPoint": {
+			"path": "/method_options2",
+			"allowedHttpMethods": ["GET", "HEAD", "OPTIONS", "PUT", "POST"]
+		}
+	},
+	{
+		"endPoint": {
+			"path": "/head_request",
+			"allowedHttpMethods": ["GET", "HEAD", "OPTIONS"]
+		}
+	},
+	{
+		"endPoint": {
+			"path": "/simple_get",
+			"allowedHttpMethods": ["GET", "HEAD"]
+		}
+	},
+	{
+		"endPoint": {
+			"path": "/simple_get_with_body",
+			"allowedHttpMethods": ["GET"]
+		}
+	},
+	{
+		"endPoint": {
+			"path": "/echo_body",
+			"allowedHttpMethods": ["POST"]
+		}
+	},
+	{
+		"endPoint": {
+			"path": "/text_response",
+			"allowedHttpMethods": ["GET"]
+		}
+	},
+	{
+		"endPoint": {
+			"path": "/html_response",
+			"allowedHttpMethods": ["GET"]
+		}
+	},
+	{
+		"endPoint": {
+			"path": "/json_response",
+			"allowedHttpMethods": ["GET"]
+		}
+	},
+	{
+		"endPoint": {
+			"path": "/xml_response",
+			"allowedHttpMethods": ["GET"]
+		}
+	},
+	{
+		"endPoint": {
+			"path": "/kitteh.jpg",
+			"allowedHttpMethods": ["GET"]
+		}
+	},
+	{
+		"endPoint": {
+			"path": "/doggo.png",
+			"allowedHttpMethods": ["GET"]
+		}
+	},
+	{
+		"endPoint": {
+			"path": "/kisses.gif",
+			"allowedHttpMethods": ["GET"]
+		}
+	},
+	{
+		"endPoint": {
+			"path": "/health-check.html",
+			"allowedHttpMethods": ["GET"]
+		}
+	},
+	{
+		"endPoint": {
+			"path": "/todo",
+			"allowedHttpMethods": ["POST"]
+		}
+	}
+]

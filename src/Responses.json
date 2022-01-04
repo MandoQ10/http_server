@@ -1,0 +1,272 @@
+[
+	{
+		"response":{
+			"path": "/redirect",
+			"httpMethod": "GET",
+			"httpVersion": "HTTP/1.1",
+			"statusCode": "301",
+			"reasonPhrase": "Moved Permanently",
+			"headers": [
+					{ 
+						"header": {
+							"key": "Location:",
+							"value": "http://127.0.0.1:5000/simple_get"
+						}
+					}
+				],
+			"body": ""
+		}
+	},
+	{
+		"response":{
+			"path": "/method_options",
+			"httpMethod": "OPTIONS",
+			"httpVersion": "HTTP/1.1",
+			"statusCode": "200",
+			"reasonPhrase": "OK",
+			"headers": [
+					{
+						"header": {
+							"key": "Allow:",
+							"value": "GET, HEAD, OPTIONS"
+						}
+						
+					}
+				],
+			"body": ""
+		}
+	},
+	{
+		"response":{
+			"path": "/method_options2",
+			"httpMethod": "OPTIONS",
+			"httpVersion": "HTTP/1.1",
+			"statusCode": "200",
+			"reasonPhrase": "OK",
+			"headers": [
+					{
+						"header": {
+							"key": "Allow:",
+							"value": "GET, HEAD, OPTIONS, POST, PUT"
+						}
+					}
+				],
+			"body": ""
+		}
+	},
+	{
+		"response":{
+			"path": "/head_request",
+			"httpMethod": "GET",
+			"httpVersion": "HTTP/1.1",
+			"statusCode": "405",
+			"reasonPhrase": "Method Not Allowed",
+			"headers": [{
+						"header": {
+							"key": "Allow:",
+							"value": "HEAD, OPTIONS"
+						}
+					}],
+			"body": ""
+		}
+	},
+	{
+		"response":{
+			"path": "/head_request",
+			"httpMethod": "HEAD",
+			"httpVersion": "HTTP/1.1",
+			"statusCode": "200",
+			"reasonPhrase": "OK",
+			"headers": [],
+			"body": ""
+		}
+	},
+	{
+		"response":{
+			"path": "/simple_get_with_body",
+			"httpMethod": "GET",
+			"httpVersion": "HTTP/1.1",
+			"statusCode": "200",
+			"reasonPhrase": "OK",
+			"headers": [],
+			"body": "Hello world"
+		}
+	},
+	{
+		"response":{
+			"path": "/simple_get",
+			"httpMethod": "GET",
+			"httpVersion": "HTTP/1.1",
+			"statusCode": "200",
+			"reasonPhrase": "OK",
+			"headers": [],
+			"body": ""
+		}
+	},
+	{
+		"response":{
+			"path": "/simple_get",
+			"httpMethod": "HEAD",
+			"httpVersion": "HTTP/1.1",
+			"statusCode": "200",
+			"reasonPhrase": "OK",
+			"headers": [],
+			"body": ""
+		}
+	},
+	{
+		"response":{
+			"path": "/echo_body",
+			"httpMethod": "POST",
+			"httpVersion": "HTTP/1.1",
+			"statusCode": "200",
+			"reasonPhrase": "OK",
+			"headers": [],
+			"body": "some body"
+		}
+	},
+	{
+		"response":{
+			"path": "/text_response",
+			"httpMethod": "GET",
+			"httpVersion": "HTTP/1.1",
+			"statusCode": "200",
+			"reasonPhrase": "OK",
+			"headers": [{
+						"header": {
+							"key": "content-type:",
+							"value": "text/plain;charset=utf-8"
+						}
+					}],
+			"body": "text response"
+		}
+	},
+	{
+		"response":{
+			"path": "/html_response",
+			"httpMethod": "GET",
+			"httpVersion": "HTTP/1.1",
+			"statusCode": "200",
+			"reasonPhrase": "OK",
+			"headers": [{
+						"header": {
+							"key": "content-type:",
+							"value": "text/html;charset=utf-8"
+						}
+					}],
+			"body": "<html><body><p>HTML Response</p></body></html>"
+		}
+	},
+	{
+		"response":{
+			"path": "/json_response",
+			"httpMethod": "GET",
+			"httpVersion": "HTTP/1.1",
+			"statusCode": "200",
+			"reasonPhrase": "OK",
+			"headers": [{
+						"header": {
+							"key": "content-type:",
+							"value": "application/json;charset=utf-8"
+						}
+					}],
+			"body": "{\"key1\":\"value1\",\"key2\":\"value2\"}"
+		}
+	},
+	{
+		"response":{
+			"path": "/xml_response",
+			"httpMethod": "GET",
+			"httpVersion": "HTTP/1.1",
+			"statusCode": "200",
+			"reasonPhrase": "OK",
+			"headers": [{
+						"header": {
+							"key": "content-type:",
+							"value": "application/xml;charset=utf-8"
+						}
+					}],
+			"body": "<note><body>XML Response</body></note>"
+		}
+	},
+	{
+		"response":{
+			"path": "/kitteh.jpg",
+			"httpMethod": "GET",
+			"httpVersion": "HTTP/1.1",
+			"statusCode": "200",
+			"reasonPhrase": "OK",
+			"headers": [{
+						"header": {
+							"key": "content-type:",
+							"value": "image/jpeg"
+						}
+					}],
+			"body": "src/files/kitteh.jpg"
+		}
+	},
+	{
+		"response":{
+			"path": "/doggo.png",
+			"httpMethod": "GET",
+			"httpVersion": "HTTP/1.1",
+			"statusCode": "200",
+			"reasonPhrase": "OK",
+			"headers": [{
+						"header": {
+							"key": "content-type:",
+							"value": "image/png"
+						}
+					}],
+			"body": "src/files/doggo.png"
+		}
+	},
+	{
+		"response":{
+			"path": "/kisses.gif",
+			"httpMethod": "GET",
+			"httpVersion": "HTTP/1.1",
+			"statusCode": "200",
+			"reasonPhrase": "OK",
+			"headers": [{
+						"header": {
+							"key": "content-type:",
+							"value": "image/gif"
+						}
+					}],
+			"body": "src/files/kisses.gif"
+		}
+	},
+	{
+		"response":{
+			"path": "/health-check.html",
+			"httpMethod": "GET",
+			"httpVersion": "HTTP/1.1",
+			"statusCode": "200",
+			"reasonPhrase": "OK",
+			"headers": [{
+						"header": {
+							"key": "content-type:",
+							"value": "text/html;charset=utf-8"
+						}
+					}],
+			"body": "src/files/health-check.html"
+		}
+	},
+	{
+		"response":{
+			"path": "/todo",
+			"httpMethod": "POST",
+			"httpVersion": "HTTP/1.1",
+			"statusCode": "201",
+			"reasonPhrase": "Created",
+			"headers": [{
+						"header": {
+							"key": "content-type:",
+							"value": "application/json;charset=utf-8"
+						}
+					}],
+			"body": ""
+		}
+	}
+]
