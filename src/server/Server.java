@@ -1,8 +1,12 @@
+package server;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import org.json.simple.parser.ParseException;
+
+import parser.RequestParser;
+import router.Router;
 
 public class Server {
 
@@ -10,8 +14,7 @@ public class Server {
 		int portNumber = 5000;		
 		Router myRouter = new Router();
 		
-		myRouter.GetRequestsJSON();
-		myRouter.getResponsesForEndPoints();
+		myRouter.initalizeEndPointsWithResponses();
 		
 		try(ServerSocket serverSocket = new ServerSocket(portNumber)){
 			while(true) {
@@ -21,7 +24,7 @@ public class Server {
 					RequestParser clientInputParser = new RequestParser(clientSocket.getInputStream());	
 					
 					String[] requestParams = clientInputParser.parse();				
-					byte[] response = myRouter.getRequest(requestParams[1], requestParams[0]);
+					byte[] response = myRouter.getResponse(requestParams[1], requestParams[0]);
 				
 					outStream.write(response);
 					
@@ -33,4 +36,4 @@ public class Server {
 			System.out.println(e);
 		}
 	}
-}			
+}				

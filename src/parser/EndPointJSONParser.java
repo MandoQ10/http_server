@@ -1,3 +1,4 @@
+package parser;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Hashtable;
@@ -7,10 +8,12 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import endPoint.EndPoint;
+
 public class EndPointJSONParser {
 	
 	@SuppressWarnings("unchecked")
-	public void GetRequestsJSON(Hashtable<String, EndPoint> routerEndPoints) throws IOException, ParseException {
+	public void getRequestsJSON(Hashtable<String, EndPoint> routerEndPoints) throws IOException, ParseException {
 		JSONParser jsonParser = new JSONParser();
 		FileReader reader = new FileReader("src/EndPoints.json");
 		
@@ -19,7 +22,7 @@ public class EndPointJSONParser {
 		
 		endPointList.forEach(endPoint -> { 
 			EndPoint parsedEndPoint = parseEndPointObject( (JSONObject) endPoint);
-			routerEndPoints.put(parsedEndPoint.path, parsedEndPoint);
+			routerEndPoints.put(parsedEndPoint.getPath(), parsedEndPoint);
 		});
 	}
 	
@@ -34,4 +37,4 @@ public class EndPointJSONParser {
         
         return new EndPoint(path, httpMethodArray);
 	}
-}	
+}		

@@ -6,7 +6,10 @@ import static org.junit.Assert.assertArrayEquals;
 import java.io.IOException;
 
 import org.json.simple.parser.ParseException;
-import org.junit.jupiter.api.Test; 
+import org.junit.jupiter.api.Test;
+
+import endPoint.EndPoint;
+import httpResponse.HttpResponse; 
 
 class EndPointTest {
 	

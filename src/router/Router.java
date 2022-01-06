@@ -1,7 +1,12 @@
+package router;
 import java.util.Hashtable;
 import java.io.IOException;
-
 import org.json.simple.parser.ParseException;
+
+import endPoint.EndPoint;
+import httpResponse.HttpResponse;
+import parser.EndPointJSONParser;
+import parser.ResponsesJSONParser;
 
 public class Router {
 	private Hashtable<String, EndPoint> endPoints;
@@ -10,17 +15,12 @@ public class Router {
 		this.endPoints = new Hashtable<String, EndPoint>();
 	}
 	
-	public void GetRequestsJSON() throws IOException, ParseException {
-		EndPointJSONParser parsedRequests = new EndPointJSONParser();
-		parsedRequests.GetRequestsJSON(endPoints);
+	public void initalizeEndPointsWithResponses() throws IOException, ParseException {
+		getRequestsJSON();
+		addResponsesToEndPoints();
 	}
 	
-	public void getResponsesForEndPoints() throws IOException, ParseException {
-		ResponsesJSONParser responsesParser = new ResponsesJSONParser();
-		responsesParser.getResponsesForEndPoints(endPoints);
-	}
-	
-	public byte[] getRequest(String endPointPath, String httpMethod) throws ParseException, IOException {
+	public byte[] getResponse(String endPointPath, String httpMethod) throws ParseException, IOException {
 		if(endPoints.containsKey(endPointPath)) {
 			EndPoint clientRequest = endPoints.get(endPointPath);
 			return clientRequest.getResponseForMethod(httpMethod);
@@ -30,4 +30,14 @@ public class Router {
 		return endPointNotFoundResponse.getFormattedResponse();
 	}
 	
-}				
+	private void getRequestsJSON() throws IOException, ParseException {
+		EndPointJSONParser parsedRequests = new EndPointJSONParser();
+		parsedRequests.getRequestsJSON(endPoints);
+	}
+	
+	private void addResponsesToEndPoints() throws IOException, ParseException {
+		ResponsesJSONParser responsesParser = new ResponsesJSONParser();
+		responsesParser.getResponsesForEndPoints(endPoints);
+	}
+	
+}									

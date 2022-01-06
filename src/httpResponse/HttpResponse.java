@@ -1,3 +1,5 @@
+package httpResponse;
+
 import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -18,7 +20,7 @@ public class HttpResponse {
 		this.headers = headers;
 		this.body = body;
 	}	
-		
+			
 	public byte[] getFormattedResponse() throws IOException {
 			
 		String statusLine = getStatusLine();

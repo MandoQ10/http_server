@@ -1,9 +1,13 @@
+package endPoint;
+
 import java.io.IOException;
 import java.util.Hashtable;
 import org.json.simple.parser.ParseException;
 
+import httpResponse.HttpResponse;
+
 public class EndPoint {
-	String path;
+	private String path;
 	private String[] allowedMethods;
 	private Hashtable<String, HttpResponse> requestsAndResponses;
 	
@@ -11,6 +15,10 @@ public class EndPoint {
 		this.path = path;
 		this.allowedMethods = allowedMethods;
 		this.requestsAndResponses = new Hashtable<String, HttpResponse>();
+	}
+	
+	public String getPath() {
+		return path;
 	}
 		
 	public byte[] getResponseForMethod(String httpMethod) throws ParseException, IOException {
