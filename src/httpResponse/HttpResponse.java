@@ -19,7 +19,7 @@ public class HttpResponse {
 		this.reasonPhrase = reasonPhrase;
 		this.headers = headers;
 		this.body = body;
-	}	
+	}		
 			
 	public byte[] getFormattedResponse() throws IOException {
 			
@@ -92,7 +92,7 @@ public class HttpResponse {
 	        
 	        return imageByteArray;
 		}
-		
+	
 		return (body.isEmpty()) ? "\r\n".getBytes() : body.getBytes();
 	}
 	

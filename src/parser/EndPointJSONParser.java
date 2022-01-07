@@ -13,7 +13,7 @@ import endPoint.EndPoint;
 public class EndPointJSONParser {
 	
 	@SuppressWarnings("unchecked")
-	public void getRequestsJSON(Hashtable<String, EndPoint> routerEndPoints) throws IOException, ParseException {
+	public void parseEndPointsJSON(Hashtable<String, EndPoint> routerEndPoints) throws IOException, ParseException {
 		JSONParser jsonParser = new JSONParser();
 		FileReader reader = new FileReader("src/EndPoints.json");
 		
@@ -24,7 +24,7 @@ public class EndPointJSONParser {
 			EndPoint parsedEndPoint = parseEndPointObject( (JSONObject) endPoint);
 			routerEndPoints.put(parsedEndPoint.getPath(), parsedEndPoint);
 		});
-	}
+	}	
 	
 	@SuppressWarnings("unchecked")
 	private static EndPoint parseEndPointObject(JSONObject endPoint) {
@@ -36,5 +36,5 @@ public class EndPointJSONParser {
         String[] httpMethodArray = (String[]) httpMethods.toArray(new String[httpMethods.size()]);
         
         return new EndPoint(path, httpMethodArray);
-	}
-}		
+	}	
+}			

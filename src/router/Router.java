@@ -16,7 +16,7 @@ public class Router {
 	}
 	
 	public void initalizeEndPointsWithResponses() throws IOException, ParseException {
-		getRequestsJSON();
+		getEndPointsFromRequestsJSON();
 		addResponsesToEndPoints();
 	}
 	
@@ -30,9 +30,9 @@ public class Router {
 		return endPointNotFoundResponse.getFormattedResponse();
 	}
 	
-	private void getRequestsJSON() throws IOException, ParseException {
+	private void getEndPointsFromRequestsJSON() throws IOException, ParseException {
 		EndPointJSONParser parsedRequests = new EndPointJSONParser();
-		parsedRequests.getRequestsJSON(endPoints);
+		parsedRequests.parseEndPointsJSON(endPoints);
 	}
 	
 	private void addResponsesToEndPoints() throws IOException, ParseException {
@@ -40,4 +40,4 @@ public class Router {
 		responsesParser.getResponsesForEndPoints(endPoints);
 	}
 	
-}									
+}										
