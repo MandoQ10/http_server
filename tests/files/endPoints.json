@@ -1,0 +1,14 @@
+[
+	{	
+		"endPoint": {
+			"path": "/redirect",
+			"allowedHttpMethods": ["GET"]
+		}
+	},
+	{
+		"endPoint": {
+			"path": "/method_options",
+			"allowedHttpMethods": ["GET", "HEAD", "OPTIONS"]
+		}
+	}
+]
