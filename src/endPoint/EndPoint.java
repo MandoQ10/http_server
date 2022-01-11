@@ -19,7 +19,7 @@ public class EndPoint {
 	
 	public String getPath() {
 		return path;
-	}
+	}	
 		
 	public byte[] getResponseForMethod(String httpMethod) throws ParseException, IOException {
 		
@@ -37,7 +37,7 @@ public class EndPoint {
 	}
 	
 	private String getAvaliableMethods() {
-		String allMethods = "";
+		String allMethods = "";	
 		
 		for(int i = 0; i < allowedMethods.length; ++i) {
 			if(i == allowedMethods.length - 1) {
