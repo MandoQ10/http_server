@@ -12,19 +12,33 @@ import parser.ResponsesJSONParser;
 class ResponsesJSONParserTest {
 	
 	Hashtable<String, EndPoint> endPoints = new Hashtable<String, EndPoint>();
+	String jsonAndResponseObjectNull = "Cannot invoke \"org.json.simple.JSONObject.get(Object)\" "
+			+ "because \"responseObject\" is null";
 	
-	//Is it better to test the actual endPoints and responses or create endPoints and responses manually?
-	//Since response parser depends on the endPoint parser to fill a hastable with endpoints 
-	//However for testing reasons, it shouldn't need to rely on the EndPointParser?
 	@Test
 	void testResponseParser() throws IOException, ParseException  {
 		
 		EndPointJSONParser parsedRequests = new EndPointJSONParser();
-		parsedRequests.parseEndPointsJSON(endPoints);
+		parsedRequests.parseEndPointsJSON("src/EndPoints.json", endPoints);
 		
 		ResponsesJSONParser parseResponses = new ResponsesJSONParser();
-		parseResponses.getResponsesForEndPoints(endPoints);
+		parseResponses.getResponsesForEndPoints("src/Responses.json", endPoints);
+	}
+	
+	@Test
+	void testEmptyResponseJSON() throws IOException, ParseException  {
+		
+		EndPointJSONParser parsedRequests = new EndPointJSONParser();
+		parsedRequests.parseEndPointsJSON("src/EndPoints.json",endPoints);
+		
+		ResponsesJSONParser parseResponses = new ResponsesJSONParser();
+		
+		Throwable exception = assertThrows(Exception.class, () 
+				-> parseResponses.getResponsesForEndPoints("tests/files/invalidResponse.json", endPoints));
+		
+		assertEquals(jsonAndResponseObjectNull, exception.getMessage());
 	}
 
-}
+
+}	
  
