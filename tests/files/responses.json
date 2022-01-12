@@ -1,0 +1,50 @@
+[
+	{
+		"response":{
+			"path": "/redirect",
+			"httpMethod": "GET",
+			"httpVersion": "HTTP/1.1",
+			"statusCode": "301",
+			"reasonPhrase": "Moved Permanently",
+			"headers": [
+					{ 
+						"header": {
+							"key": "Location:",
+							"value": "http://127.0.0.1:5000/simple_get"
+						}
+					}
+				],
+			"body": ""
+		}
+	},
+	{
+		"response":{
+			"path": "/method_options",
+			"httpMethod": "OPTIONS",
+			"httpVersion": "HTTP/1.1",
+			"statusCode": "200",
+			"reasonPhrase": "OK",
+			"headers": [
+					{
+						"header": {
+							"key": "Allow:",
+							"value": "GET, HEAD, OPTIONS"
+						}
+						
+					}
+				],
+			"body": ""
+		}
+	},
+		{
+		"response":{
+			"path": "/head_request",
+			"httpMethod": "HEAD",
+			"httpVersion": "HTTP/1.1",
+			"statusCode": "200",
+			"reasonPhrase": "OK",
+			"headers": [],
+			"body": ""
+		}
+	}
+]

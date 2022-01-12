@@ -19,7 +19,7 @@ public class Router {
 		getEndPointsFromRequestsJSON();
 		addResponsesToEndPoints();
 	}
-	
+		
 	public byte[] getResponse(String endPointPath, String httpMethod) throws ParseException, IOException {
 		if(endPoints.containsKey(endPointPath)) {
 			EndPoint clientRequest = endPoints.get(endPointPath);
@@ -32,12 +32,12 @@ public class Router {
 	
 	private void getEndPointsFromRequestsJSON() throws IOException, ParseException {
 		EndPointJSONParser parsedRequests = new EndPointJSONParser();
-		parsedRequests.parseEndPointsJSON(endPoints);
+		parsedRequests.parseEndPointsJSON("src/EndPoints.json", endPoints);
 	}
 	
 	private void addResponsesToEndPoints() throws IOException, ParseException {
 		ResponsesJSONParser responsesParser = new ResponsesJSONParser();
-		responsesParser.getResponsesForEndPoints(endPoints);
+		responsesParser.getResponsesForEndPoints("src/EndPoints.json", endPoints);
 	}
 	
-}										
+}													

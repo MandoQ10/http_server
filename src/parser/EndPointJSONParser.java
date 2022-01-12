@@ -12,20 +12,23 @@ import endPoint.EndPoint;
 
 public class EndPointJSONParser {
 	
+	//take hard coded path out and have a path string argument 
+	//allows for us to test different test cases with multiple files 
+	
 	@SuppressWarnings("unchecked")
-	public void parseEndPointsJSON(Hashtable<String, EndPoint> routerEndPoints) throws IOException, ParseException {
+	public void parseEndPointsJSON(String filePath, Hashtable<String, EndPoint> routerEndPoints) throws IOException, ParseException {
 		JSONParser jsonParser = new JSONParser();
-		FileReader reader = new FileReader("src/EndPoints.json");
+		FileReader reader = new FileReader(filePath);
 		
 		Object obj = jsonParser.parse(reader);
 		JSONArray endPointList = (JSONArray) obj;
 		
 		endPointList.forEach(endPoint -> { 
 			EndPoint parsedEndPoint = parseEndPointObject( (JSONObject) endPoint);
-			routerEndPoints.put(parsedEndPoint.getPath(), parsedEndPoint);
+			routerEndPoints.put(parsedEndPoint.getPath(), parsedEndPoint); //test that the arguments are modified ex: expect to have a set of values and keys 
 		});
-	}	
-	
+	}		
+			
 	@SuppressWarnings("unchecked")
 	private static EndPoint parseEndPointObject(JSONObject endPoint) {
         JSONObject endPointObject = (JSONObject) endPoint.get("endPoint");
